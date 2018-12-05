@@ -1,10 +1,35 @@
 {% extends "layout.html.twig" %}
+
 {% trans_default_domain 'FOSUserBundle' %}
 {% block fos_user_content %}
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    {#{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" value="{{ 'registration.submit'|trans }}" />
+        </div>
+    {{ form_end(form) }#}
+
+    <div class="text-center">
+        <form class="form-signin" action="{{ path("fos_user_registration_register") }}" method="post">
+            <img class="mb-4" src="{{asset('assets/images/logo.png')}}" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+            {{ form_row(form.username) }}
+
+
+            {{ form_row(form.email) }}
+
+            {{ form_row(form.plainPassword.first) }}
+
+
+            {{ form_row(form.plainPassword.second) }}
+
+            <div class="row  {{ app.request.get('hash') ? 'hidden' }}">
+
+            </div>
+            <div>
+                <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-lg btn-primary btn-block"  />
+            </div>
+        </form>
     </div>
-{{ form_end(form) }}
-{%endblock fos_user_content %}
+
+{% endblock fos_user_content %}
